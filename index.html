@@ -17,16 +17,19 @@
         <div class="row align-items-center">
             <div class="col-md-3" id="scanner" style="padding: 5% 1%;">
                 <div id="container-escaner" class="text-center">
-                    <div id="escaner"></div>
-                    <button class="btn btn-warning" id="btn-scanear">Escanear</button>
+                    <div id="escaner">
+                        <div class="laser"></div>
+                    </div>
+                    <button class="btn btn-outline-danger" id="btn-scanear">Escanear</button>
                 </div>
             </div>
-            <div class="col-md-9 view">
+            <div class="col-md-9 view" id="cardContainer">
                 <div id="producto" class="card text-center">
-                    <!-- <img src="./src/default.jpg" alt="" id="img-producto"> -->
                     <div class="h2" id="nombre-producto">Cloro de 255 ml</div>
+                    <div class="divider"></div>
                     <div class="h1" id="precio">Precio: $10.99</div>
-                    <div class="h3">Descripcion del producto</div>
+                    <div class="divider"></div>
+                    <div class="h3" id="description">Descripcion del producto</div>
                 </div>
             </div>
         </div>

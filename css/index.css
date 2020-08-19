@@ -1,32 +1,45 @@
-/* body{
-    background: rgb(158, 231, 241);
-} */
 #app{
-    /* background: rgb(167, 238, 139); */
     margin-bottom: auto;
-    /* height: 500px; */
 }
 #container-escaner{
     position: relative;
     width: 90%;
     height: 250px;
-    /* margin-top: auto; */
-    /* margin: 18% 1% 1% 1%; */
-    /* background: rgb(228, 121, 121); */
+    background-image: url("../src/codigo1.jpg");
+    background-size: 100% 100%;
+    border-radius: 3%;
 }
 #escaner{
-    background: rgb(133, 119, 119);
+    background: rgba(255, 0, 0, 0.507);
     position: absolute;
     width: 100%;
     height: 100%;
     z-index: 0;
     border-radius: 3%;
+    border: 3px solid #505050;
+}
+.laser{
+    position: absolute;
+    top: 50%;
+    left: 5%;
+    width: 90%;
+    background: rgb(255, 195, 195);
+    height: 4px;
+    box-shadow: 0px 0px 9px 5px #ff0000;
 }
 #btn-scanear{
     position: absolute;
-    top: 40%;
+    top: 41%;
     left: 30%;
     z-index: 1;
+    background: rgb(253, 207, 0);
+    padding: 5%;
+    color: #020202;
+    border:1px solid #000000;
+}
+#btn-scanear:hover{
+    color: #000000;
+    box-shadow: 0px 0px 9px 5px #ff0000;
 }
 .card{
     margin: 4%;
@@ -34,21 +47,53 @@
     display: inline-block;
     width: 90%;
     border-radius: 2%;
-    border: solid 1px rgb(88, 88, 88);
-    box-shadow: 7px 7px 10px rgb(107, 107, 107);
-}
-#img-producto{
-    width: 60%;
-    border-radius: 2%;
-}
-#nombre-producto{
-    margin: 3% 0px;
+    border: solid 2px rgb(206, 206, 206);
+    background: rgb(250, 250, 250);
 }
 #precio{
+    color: #ff0000;
+}
+.divider{
+    width: 100%;
+    background: #646464;
+    height: 2px;
     margin: 9% 0px;
 }
 @media screen and (min-width: 1025px) {
     #precio{
         font-size: 70px;
+    }
+}
+@media screen and (max-width: 900px) {
+    #container-escaner{
+        width: 200px;
+    }
+    #escaner{
+        width: 200px;
+    }
+}
+@media screen and (max-width: 767px) {
+    #container-escaner{
+        width: 250px;
+    }
+    #escaner{
+        width: 250px;
+    }
+    #container-escaner{
+        margin: auto;
+    }
+    #btn-scanear{
+        left: 34%;
+    }
+}
+@media screen and (max-width: 550px) {
+    #nombre-producto{
+        font-size: 30px;
+    }
+    #precio{
+        font-size: 40px;
+    }
+    #description{
+        font-size: 24px;
     }
 }
