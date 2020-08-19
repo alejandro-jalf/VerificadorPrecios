@@ -17,19 +17,24 @@
         <div class="row align-items-center">
             <div class="col-md-3" id="scanner" style="padding: 5% 1%;">
                 <div id="container-escaner" class="text-center">
-                    <div id="escaner">
+                    <div id="lector"></div>
+                    <div v-if="!scannerVisible" id="imageCodigo"></div>
+                    <div v-if="!scannerVisible" id="escaner">
                         <div class="laser"></div>
                     </div>
-                    <button class="btn btn-outline-danger" id="btn-scanear">Escanear</button>
+                    <button v-if="!scannerVisible" class="btn btn-outline-danger" id="btn-scanear" @click="activateScanner">Escanear</button>
                 </div>
             </div>
             <div class="col-md-9 view" id="cardContainer">
                 <div id="producto" class="card text-center">
-                    <div class="h2" id="nombre-producto">Cloro de 255 ml</div>
+                    <div v-if="imageCode" id="imageBarra">
+                        <div class="h2" id="codeActual">{{codigoActual}}</div>
+                    </div>
+                    <div class="h2" id="nombre-producto">{{name}}</div>
                     <div class="divider"></div>
-                    <div class="h1" id="precio">Precio: $10.99</div>
+                    <div class="h1" id="precio">Precio: ${{precio}}</div>
                     <div class="divider"></div>
-                    <div class="h3" id="description">Descripcion del producto</div>
+                    <div class="h3" id="description">{{description}}</div>
                 </div>
             </div>
         </div>
@@ -40,5 +45,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="./js/index.js"></script>
+    
+    <script src="https://unpkg.com/quagga@0.12.1/dist/quagga.min.js"></script>
+    <script  src="./js/lector.js"></script>
 </body>
 </html>
