@@ -97,3 +97,14 @@
         font-size: 24px;
     }
 }
+@media screen and (max-width: 500px) {
+    #nombre-producto{
+        font-size: 25px;
+    }
+    #precio{
+        font-size: 30px;
+    }
+    #description{
+        font-size: 20px;
+    }
+}
