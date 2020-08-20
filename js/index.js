@@ -18,6 +18,10 @@ var app = new Vue({
             this.scannerVisible = true;
             objectQuagga.initQuagga();
         },
+        stopScanner: function() {
+            Quagga.stop();
+            this.scannerVisible = false;
+        },
         setDatosActuales: function(codigo) {
             this.codigoActual = codigo;
             const productFind = this.productos.filter((producto) => producto.codigo == codigo);
