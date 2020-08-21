@@ -3,8 +3,8 @@
 }
 #container-escaner{
     position: relative;
-    width: 90%;
-    height: 250px;
+    width: 300px;
+    height: 300px;
     border-radius: 3%;
 }
 #imageCodigo{
@@ -31,18 +31,21 @@
     background: rgb(250, 250, 250);
     font-size: 25px;
 }
-#lector video{
-	max-width: 100%;
-	width: 100%;
-    height: 100%;
-}
 #lector{
     position: absolute;
-    max-width: 100%;
-    width: 100%;
-    height: 100%;
+    max-width: 300px;
+    max-height: 300px;
+    width: 300px;
+    height: 300px;
     border-radius: 3%;
     left: 0px;
+    top: 0px;
+}
+#lector video{
+	max-width: 300px;
+    max-height: 300px;
+	width: 300px;
+    height: 300px;
 }
 #escaner{
     background: rgba(255, 0, 0, 0.507);
@@ -53,7 +56,7 @@
     border-radius: 3%;
     border: 3px solid #505050;
 }
-.laser{
+.laser, #laserImage{
     position: absolute;
     top: 50%;
     left: 5%;
@@ -61,6 +64,12 @@
     background: rgb(255, 195, 195);
     height: 4px;
     box-shadow: 0px 0px 9px 5px #ff0000;
+}
+#laserImage{
+    z-index: 3;
+    box-shadow: 0px 0px 7px 3px #ff0000;
+    height: 1px;
+    top: 55%;
 }
 #btn-scanear{
     position: absolute;
@@ -100,7 +109,7 @@
     }
 }
 @media screen and (max-width: 900px) {
-    #container-escaner{
+    #container-escaner, #lector{
         width: 200px;
     }
     #escaner{
@@ -108,7 +117,7 @@
     }
 }
 @media screen and (max-width: 767px) {
-    #container-escaner{
+    #container-escaner, #lector{
         width: 250px;
     }
     #escaner{

@@ -4,8 +4,8 @@ document.addEventListener("DOMContentLoaded", () => {
         Quagga.init({
             inputStream: {
                 constraints: {
-                    width: 500,
-                    height: 500,
+                    width: 1920,
+                    height: 1080,
                 },
                 name: "Live",
                 type: "LiveStream",
@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
             app.codigoActual = data.codeResult.code;
             app.setDatosActuales(data.codeResult.code);
             Quagga.stop();
-            window.navigator.vibrate(200);
+            window.navigator.vibrate(500);
             app.setScannerVisible(false);
         });
     
