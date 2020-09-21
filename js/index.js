@@ -5,7 +5,7 @@ var app = new Vue({
         scannerVisible: false,
         name: "Nombre del producto",
         precio: "00.00",
-        description: "Descripcion del preoducto",
+        description: "Descripcion del producto",
         codigoActual: "34543543534543",
         productos: [
             {codigo: "3800065711135", name: "Pasta de dientes Colgate", precio: "19.90", descripcion: "Pasta dental triple accion"},
