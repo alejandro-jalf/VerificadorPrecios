@@ -17,6 +17,7 @@ var app = new Vue({
         activateScanner: function() {
             this.scannerVisible = true;
             objectQuagga.initQuagga();
+            this.startLoading(500);
         },
         stopScanner: function() {
             Quagga.stop();
@@ -38,6 +39,12 @@ var app = new Vue({
         },
         setScannerVisible: function(visible) {
             this.scannerVisible = visible;
+        },
+        startLoading: function(value) {
+            $(".background").show(value);
+        },
+        stopLoading: function(value) {
+            $(".background").hide(value);
         }
     }
 });
