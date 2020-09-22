@@ -30,7 +30,13 @@ var app = new Vue({
 
             const uriComplete = `${this.urlApi}${codigo}/precios`;
 
-            axios.get(uriComplete)
+            axios({
+                method: 'get',
+                url: uriComplete,
+                data: {
+                    sucursal: ''
+                }
+            })
             .then(function (response) {
                 const respons = response.data.data;
                 if (respons.length === 0) {
