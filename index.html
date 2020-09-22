@@ -17,9 +17,10 @@
         <div class="row align-items-center">
             <div class="col-md-3" id="scanner" style="padding: 5% 1%;">
                 <button v-if="scannerVisible" class="btn btn-danger" style="margin-top: 3%;" @click="stopScanner">Detener</button>
-                <div v-if="scannerVisible" id="laserImage"></div>
                 <div id="container-escaner" class="text-center">
-                    <div id="lector"></div>
+                    <div id="lector">
+                        <div v-if="scannerVisible" id="laserImage"></div>
+                    </div>
                     <div v-if="!scannerVisible" id="imageCodigo"></div>
                     <div v-if="!scannerVisible" id="escaner">
                         <div class="laser"></div>
