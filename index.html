@@ -34,14 +34,14 @@
             </div>
             <div class="col-md-9 view" id="cardContainer">
                 <div id="producto" class="card text-center">
-                    <div v-if="imageCode" id="imageBarra">
-                        <div class="h2" id="codeActual">{{codigoActual}}</div>
-                    </div>
                     <div class="h2" id="nombre-producto">{{name}}</div>
                     <div class="divider"></div>
                     <div class="h1" id="precio">Precio: ${{precio}}</div>
                     <div class="divider"></div>
                     <div class="h3" id="description">{{description}}</div>
+                    <div v-if="imageCode" id="imageBarra">
+                        <div class="h2" id="codeActual">{{codigoActual}}</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -116,15 +116,13 @@
             $(window).keypress(function(e) {
                 var code = (e.keyCode ? e.keyCode : e.which);
                 if(code==13){
-                    if (app.sucursalSelected === 0) {
+                    if (app.sucursalConnected === "ND") {
                         alert("No selecciono una sucursal");
                         return;
                     }
-                    // app.setDatosActuales(letras);
+                    app.setDatosActuales(letras);
                     letras = "";
                 }
-                // letras += e.key;
-                // console.log(letras);
             });
         });
     </script>

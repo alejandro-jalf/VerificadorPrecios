@@ -152,6 +152,11 @@ canvas{
         left: 34%;
     }
 }
+@media screen and (max-width: 650px) {
+    #imageBarra{
+        width: 300px;
+    }
+}
 @media screen and (max-width: 550px) {
     #nombre-producto{
         font-size: 30px;
@@ -172,5 +177,11 @@ canvas{
     }
     #description{
         font-size: 20px;
+    }
+}
+@media screen and (max-width: 450px) {
+    #imageBarra{
+        width: 100%;
+        height: 50px;
     }
 }
