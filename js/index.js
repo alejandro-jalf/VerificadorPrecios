@@ -13,7 +13,7 @@ var app = new Vue({
         ],
         imageCode: false,
         urlApi: "https://.....",
-        sucursalConnected: "ND",
+        sucursalConnected: localStorage.getItem("sucursalConnected") || "ND",
         relationNamesSuc: {
             ZR: "Zaragoza",
             JL: "Jaltipan",
@@ -50,6 +50,7 @@ var app = new Vue({
             this.setConnection(suc);
         },
         setConnection: function(value) {
+            localStorage.setItem("sucursalConnected", value);
             this.sucursalConnected = value;
             $("#ConexionTo").html(`Conexion a ${this.relationNamesSuc[this.sucursalConnected]}`);
         },
