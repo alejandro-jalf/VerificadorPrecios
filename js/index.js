@@ -12,9 +12,47 @@ var app = new Vue({
             {codigo: "9382298282288", name: "Cocacola", precio: "14.50", descripcion: "Refresco no retornable"}
         ],
         imageCode: false,
-        urlApi: "https://....."
+        urlApi: "https://.....",
+        sucursalConnected: "ND",
+        relationNamesSuc: {
+            ZR: "Zaragoza",
+            JL: "Jaltipan",
+            OU: "Oluta",
+            VC: "Victoria",
+            BO: "Bodega",
+            ND: "............."
+        },
+        password: "123456",
+        textPass: "",
+        sucursalSelected: 0
+    },
+    mounted: function() {
+        $("#ConexionTo").html(`Conexion a ${this.relationNamesSuc[this.sucursalConnected]}`);
     },
     methods: {
+        getSiglasById: function(id){
+            if (id == 1) return "VC";
+            if (id == 2) return "ZR";
+            if (id == 3) return "OU";
+            if (id == 4) return "BO";
+            if (id == 5) return "JL";
+        },
+        verifyPassword: function (){
+            if (this.sucursalSelected === 0) {
+                alert("No selecciono una sucursal");
+                return;
+            }
+            if(this.textPass !== this.password) {
+                alert("Clave incorrecta");
+                return;
+            }
+            const suc = this.getSiglasById(this.sucursalSelected);
+            this.setConnection(suc);
+        },
+        setConnection: function(value) {
+            this.sucursalConnected = value;
+            $("#ConexionTo").html(`Conexion a ${this.relationNamesSuc[this.sucursalConnected]}`);
+        },
         activateScanner: function() {
             this.scannerVisible = true;
             objectQuagga.initQuagga();

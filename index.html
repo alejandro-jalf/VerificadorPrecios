@@ -45,11 +45,49 @@
                 </div>
             </div>
         </div>
+        
+        <!-- Modal para la configuracion de sucursal -->
+        <div class="modal fade" id="modalConfigSuc" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Configurando sucursal</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="sucursal">Sucursal:</label>
+                        <select id="sucursal" class="form-control" v-model="sucursalSelected">
+                            <option value="0">Seleccione sucursal...</option>
+                            <option value="1">Victoria</option>
+                            <option value="2">Zaragoza</option>
+                            <option value="3">Oluta</option>
+                            <option value="4">Bodega</option>
+                            <option value="5">Jaltipan</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Clave de seguridad:</label>
+                        <input id="password" class="form-control" type="password" v-model="textPass">
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal" @click="verifyPassword()">Aceptar</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <footer>
-        <div class="alert alert-primary mb-0" role="alert">
-            Conexion a Zaragoza
+        <div class="alert alert-primary mb-0 position-fixed" role="alert" style="bottom: 0px; width: 100%; height: 55px;">
+            <span id="ConexionTo">Conexion a Zaragoza</span>
+            <button class="btn btn-primary float-right" type="button" data-toggle="modal" data-target="#modalConfigSuc">Config</button>
         </div>
     </footer>
 
