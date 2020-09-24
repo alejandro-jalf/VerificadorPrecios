@@ -104,5 +104,29 @@
     <script  src="./js/lector.js"></script>
 
     <script> var sound = new Audio("./src/beep6.mp3")</script>
+    <script>
+        $(document).ready(function (){
+            let letras = "";
+            $(window).bind({
+                paste: function(e) {
+                    letras =  e.originalEvent.clipboardData.getData('text'); 
+                    console.log("Valor: ",letras);
+                }
+            });
+            $(window).keypress(function(e) {
+                var code = (e.keyCode ? e.keyCode : e.which);
+                if(code==13){
+                    if (app.sucursalSelected === 0) {
+                        alert("No selecciono una sucursal");
+                        return;
+                    }
+                    // app.setDatosActuales(letras);
+                    letras = "";
+                }
+                letras += e.key;
+                console.log(letras);
+            });
+        });
+    </script>
 </body>
 </html>
