@@ -12,7 +12,7 @@ var app = new Vue({
             {codigo: "9382298282288", name: "Cocacola", precio: "14.50", descripcion: "Refresco no retornable"}
         ],
         imageCode: false,
-        urlApi: "https://.....",
+        urlApi: "http://..........",
         sucursalConnected: localStorage.getItem("sucursalConnected") || "ND",
         relationNamesSuc: {
             ZR: "Zaragoza",
@@ -63,29 +63,30 @@ var app = new Vue({
             this.scannerVisible = false;
         },
         setDatosActuales: function(codigo) {
+            console.log("Codigo: "+codigo);
             this.startLoading(500);
             const instancia = this;
             this.codigoActual = codigo;
 
             const uriComplete = `${this.urlApi}${codigo}/precios`;
-
+            const sucursal = this.sucursalConnected;
             axios({
-                method: 'get',
                 url: uriComplete,
+                method: "POST",
                 data: {
-                    sucursal: ''
+                    sucursal: sucursal
                 }
             })
             .then(function (response) {
-                const respons = response.data.data;
-                if (respons.length === 0) {
+                const respons = response.data.data[0];
+                if (response.data.data.length === 0) {
                     instancia.name = "Producto no encontrado";
                     instancia.precio = "00.00";
                     instancia.description = "Intente de nuevo";
                 } else {
-                    instancia.name = respons.nombre;
+                    instancia.name = respons.Nombre;
                     instancia.precio = respons.Precio1IVAUV;
-                    instancia.description = respons.descripcion;
+                    instancia.description = respons.Descripcion;
                 }
                 app.imageCode = true;
                 instancia.stopLoading(500);
@@ -95,7 +96,7 @@ var app = new Vue({
                 instancia.precio = "00.00";
                 instancia.description = "Intente de nuevo";
                 instancia.stopLoading(500);
-                console.log('Error: ' + error);
+                console.log(error);
             });
         },
         setScannerVisible: function(visible) {
