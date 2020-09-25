@@ -7,10 +7,6 @@ var app = new Vue({
         precio: "00.00",
         description: "Descripcion del producto",
         codigoActual: "34543543534543",
-        productos: [
-            {codigo: "3800065711135", name: "Pasta de dientes Colgate", precio: "19.90", descripcion: "Pasta dental triple accion"},
-            {codigo: "9382298282288", name: "Cocacola", precio: "14.50", descripcion: "Refresco no retornable"}
-        ],
         imageCode: false,
         urlApi: "http://..........",
         sucursalConnected: localStorage.getItem("sucursalConnected") || "ND",
@@ -24,12 +20,64 @@ var app = new Vue({
         },
         password: "123456",
         textPass: "",
-        sucursalSelected: 0
+        sucursalSelected: 0,
+        products: [
+            {Articulo: "0127166", CodigoBarras: "7501026001150", Nombre: "Sha. Fructis Oil Repair3 Cab Seco 650ml", Descripcion: "Jab. Tepeyac Lila 200gr", Precio1IVAUV: 18.99},
+            {Articulo: "0127167", CodigoBarras: "7501026001151", Nombre: "Sha. Fructis Oil Repair3 Cab Seco 650ml", Descripcion: "Jab. Tepeyac Lila 200gr", Precio1IVAUV: 19.99},
+            {Articulo: "0127168", CodigoBarras: "7501026001152", Nombre: "Sha. Fructis Oil Repair3 Cab Seco 650ml", Descripcion: "Jab. Tepeyac Lila 200gr", Precio1IVAUV: 10.99},
+            {Articulo: "0127169", CodigoBarras: "7501026001153", Nombre: "Sha. Fructis Oil Repair3 Cab Seco 650ml", Descripcion: "Jab. Tepeyac Lila 200gr", Precio1IVAUV: 11.99},
+            {Articulo: "0127160", CodigoBarras: "7501026001154", Nombre: "Sha. Fructis Oil Repair3 Cab Seco 650ml", Descripcion: "Jab. Tepeyac Lila 200gr", Precio1IVAUV: 12.99},
+            {Articulo: "0127161", CodigoBarras: "7501026001155", Nombre: "Sha. Fructis Oil Repair3 Cab Seco 650ml", Descripcion: "Jab. Tepeyac Lila 200gr", Precio1IVAUV: 13.99},
+            {Articulo: "0127162", CodigoBarras: "7501026001156", Nombre: "Sha. Fructis Oil Repair3 Cab Seco 650ml", Descripcion: "Jab. Tepeyac Lila 200gr", Precio1IVAUV: 14.99},
+            {Articulo: "0127163", CodigoBarras: "7501026001157", Nombre: "Sha. Fructis Oil Repair3 Cab Seco 650ml", Descripcion: "Jab. Tepeyac Lila 200gr", Precio1IVAUV: 15.99},
+            {Articulo: "0127164", CodigoBarras: "7501026001158", Nombre: "Sha. Fructis Oil Repair3 Cab Seco 650ml", Descripcion: "Jab. Tepeyac Lila 200gr", Precio1IVAUV: 16.99}
+        ],
+        cardSeleccionado: "",
+        textCardSelected: "",
+        alertVisible: false
     },
     mounted: function() {
         $("#ConexionTo").html(`Conexion a ${this.relationNamesSuc[this.sucursalConnected]}`);
+        $("#abrirReg").hide();
     },
     methods: {
+        searchProduct: function() {
+            this.startLoading(500);
+            const product = $("#search").val();
+            console.log(product);
+            const instancia = this;
+            axios({
+                url: "",
+                method: "POST",
+                data: {
+                    sucursal: sucursal
+                }
+            }).then(function(response) {
+                instancia.products = response.data.data;
+                instancia.stopLoading(500);
+            }).catch(function(error) {
+                console.log(error);
+                instancia.products = [];
+                instancia.stopLoading(500);
+                instancia.alertVisible = true;
+            });
+            $("#abrirReg").show();
+        },
+        loadProduct: function(articulo) {
+            const product = this.products.filter((element) => element.Articulo == articulo);
+            if (product.length === 0) {
+                alert("Ocurrio un error, haga una nueva busqueda")
+                return;
+            }
+            this.name = product[0].Nombre;
+            this.description = product[0].Descripcion;
+            this.codigoActual = product[0].CodigoBarras;
+            this.precio = product[0].Precio1IVAUV;
+        },
+        selectCard: function(articulo, name) {
+            this.cardSeleccionado = articulo;
+            this.textCardSelected = name;
+        },
         getSiglasById: function(id){
             if (id == 1) return "VC";
             if (id == 2) return "ZR";

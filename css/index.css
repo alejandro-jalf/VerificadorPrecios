@@ -126,6 +126,19 @@ canvas{
     height: 2px;
     margin: 9% 0px;
 }
+.cardProduct{
+    width: 90%;
+    margin: auto;
+    background: #72c7ff;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.articulo{
+    text-decoration: underline;
+}
+.cardActivated{
+    background: #d5e2eb;
+}
 @media screen and (min-width: 1025px) {
     #precio{
         font-size: 70px;
@@ -134,17 +147,21 @@ canvas{
 @media screen and (max-width: 900px) {
     #container-escaner, #lector{
         width: 200px;
+        height: 200px;
     }
     #escaner{
         width: 200px;
+        height: 200px;
     }
 }
 @media screen and (max-width: 767px) {
     #container-escaner, #lector{
         width: 250px;
+        height: 250px;
     }
     #escaner{
         width: 250px;
+        height: 250px;
     }
     #container-escaner{
         margin: auto;
@@ -156,6 +173,17 @@ canvas{
 @media screen and (max-width: 650px) {
     #imageBarra{
         width: 300px;
+    }
+}
+@media screen and (max-width: 576px) {
+    .leftCard{
+        width: 30%;
+    }
+    .rightCard{
+        width: 70%;
+    }
+    .h5{
+        font-size: 17px;
     }
 }
 @media screen and (max-width: 550px) {
