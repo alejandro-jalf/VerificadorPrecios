@@ -33,19 +33,16 @@ var app = new Vue({
     },
     methods: {
         setResponse: function(products, success = true) {
+            $("#abrirReg").click();
             if (success === false) {
-                console.log("pasa0");
                 this.mssgAlert = "Fallo la conexion con base de datos";
                 this.alertVisible = true;
                 return;
             }
-            console.log("pasa1");
             if (products.length === 0) {
-                console.log("pasa2");
                 this.mssgAlert = "No se encontro ningun articulo";
                 this.alertVisible = true;
             } else {
-                console.log("pasa3");
                 this.alertVisible = false;
             }
         },
