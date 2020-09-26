@@ -47,11 +47,15 @@ var app = new Vue({
             }
         },
         searchProduct: function() {
+            if (this.sucursalConnected === "ND") {
+                alert("No selecciono una sucursal");
+                return;
+            }
             this.startLoading(500);
+            this.products = [];
             const product = $("#search").val();
             const urlCompleted = `${this.urlApi}${product}`
             const sucursal = this.sucursalConnected;
-            this.products = [];
             const instancia = this;
             axios({
                 url: urlCompleted,
@@ -96,6 +100,7 @@ var app = new Vue({
             if (id == 3) return "OU";
             if (id == 4) return "BO";
             if (id == 5) return "JL";
+            return "ND";
         },
         verifyPassword: function (){
             if (this.sucursalSelected === 0) {
