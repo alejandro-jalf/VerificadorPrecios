@@ -10,7 +10,6 @@ body{
     height: 100%;
     background: #3d3d3d77;
     z-index: 8;
-    display: none;
 }
 .background img{
     margin: 25%;
@@ -212,5 +211,10 @@ canvas{
     #imageBarra{
         width: 100%;
         height: 50px;
+    }
+}
+@media screen and (max-width: 377px) {
+    #search{
+        width: 60%;
     }
 }

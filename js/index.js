@@ -6,9 +6,9 @@ var app = new Vue({
         name: "Nombre del producto",
         precio: "00.00",
         description: "Descripcion del producto",
-        codigoActual: "34543543534543",
+        codigoActual: "----------------",
         imageCode: false,
-        urlApi: "http://..........",
+        urlApi: "http://........",
         sucursalConnected: localStorage.getItem("sucursalConnected") || "ND",
         relationNamesSuc: {
             ZR: "Zaragoza",
@@ -21,45 +21,60 @@ var app = new Vue({
         password: "123456",
         textPass: "",
         sucursalSelected: 0,
-        products: [
-            {Articulo: "0127166", CodigoBarras: "7501026001150", Nombre: "Sha. Fructis Oil Repair3 Cab Seco 650ml", Descripcion: "Jab. Tepeyac Lila 200gr", Precio1IVAUV: 18.99},
-            {Articulo: "0127167", CodigoBarras: "7501026001151", Nombre: "Sha. Fructis Oil Repair3 Cab Seco 650ml", Descripcion: "Jab. Tepeyac Lila 200gr", Precio1IVAUV: 19.99},
-            {Articulo: "0127168", CodigoBarras: "7501026001152", Nombre: "Sha. Fructis Oil Repair3 Cab Seco 650ml", Descripcion: "Jab. Tepeyac Lila 200gr", Precio1IVAUV: 10.99},
-            {Articulo: "0127169", CodigoBarras: "7501026001153", Nombre: "Sha. Fructis Oil Repair3 Cab Seco 650ml", Descripcion: "Jab. Tepeyac Lila 200gr", Precio1IVAUV: 11.99},
-            {Articulo: "0127160", CodigoBarras: "7501026001154", Nombre: "Sha. Fructis Oil Repair3 Cab Seco 650ml", Descripcion: "Jab. Tepeyac Lila 200gr", Precio1IVAUV: 12.99},
-            {Articulo: "0127161", CodigoBarras: "7501026001155", Nombre: "Sha. Fructis Oil Repair3 Cab Seco 650ml", Descripcion: "Jab. Tepeyac Lila 200gr", Precio1IVAUV: 13.99},
-            {Articulo: "0127162", CodigoBarras: "7501026001156", Nombre: "Sha. Fructis Oil Repair3 Cab Seco 650ml", Descripcion: "Jab. Tepeyac Lila 200gr", Precio1IVAUV: 14.99},
-            {Articulo: "0127163", CodigoBarras: "7501026001157", Nombre: "Sha. Fructis Oil Repair3 Cab Seco 650ml", Descripcion: "Jab. Tepeyac Lila 200gr", Precio1IVAUV: 15.99},
-            {Articulo: "0127164", CodigoBarras: "7501026001158", Nombre: "Sha. Fructis Oil Repair3 Cab Seco 650ml", Descripcion: "Jab. Tepeyac Lila 200gr", Precio1IVAUV: 16.99}
-        ],
+        products: [],
         cardSeleccionado: "",
         textCardSelected: "",
-        alertVisible: false
+        alertVisible: false,
+        mssgAlert: "No se encontro ningun articulo"
     },
     mounted: function() {
         $("#ConexionTo").html(`Conexion a ${this.relationNamesSuc[this.sucursalConnected]}`);
         $("#abrirReg").hide();
     },
     methods: {
+        setResponse: function(products, success = true) {
+            if (success === false) {
+                console.log("pasa0");
+                this.mssgAlert = "Fallo la conexion con base de datos";
+                this.alertVisible = true;
+                return;
+            }
+            console.log("pasa1");
+            if (products.length === 0) {
+                console.log("pasa2");
+                this.mssgAlert = "No se encontro ningun articulo";
+                this.alertVisible = true;
+            } else {
+                console.log("pasa3");
+                this.alertVisible = false;
+            }
+        },
         searchProduct: function() {
             this.startLoading(500);
             const product = $("#search").val();
-            console.log(product);
+            const urlCompleted = `${this.urlApi}${product}`
+            const sucursal = this.sucursalConnected;
+            this.products = [];
             const instancia = this;
             axios({
-                url: "",
+                url: urlCompleted,
                 method: "POST",
                 data: {
                     sucursal: sucursal
                 }
             }).then(function(response) {
+                if (response.data.data === null) {
+                    instancia.setResponse(instancia.products, false);
+                    return;
+                }
                 instancia.products = response.data.data;
+                instancia.setResponse(instancia.products);
+                app.imageCode = true;
                 instancia.stopLoading(500);
             }).catch(function(error) {
                 console.log(error);
-                instancia.products = [];
+                instancia.setResponse(instancia.products, false);
                 instancia.stopLoading(500);
-                instancia.alertVisible = true;
             });
             $("#abrirReg").show();
         },
@@ -72,7 +87,7 @@ var app = new Vue({
             this.name = product[0].Nombre;
             this.description = product[0].Descripcion;
             this.codigoActual = product[0].CodigoBarras;
-            this.precio = product[0].Precio1IVAUV;
+            this.precio = product[0].Precio;
         },
         selectCard: function(articulo, name) {
             this.cardSeleccionado = articulo;
@@ -111,7 +126,6 @@ var app = new Vue({
             this.scannerVisible = false;
         },
         setDatosActuales: function(codigo) {
-            console.log("Codigo: "+codigo);
             this.startLoading(500);
             const instancia = this;
             this.codigoActual = codigo;
@@ -133,7 +147,7 @@ var app = new Vue({
                     instancia.description = "Intente de nuevo";
                 } else {
                     instancia.name = respons.Nombre;
-                    instancia.precio = respons.Precio1IVAUV;
+                    instancia.precio = respons.Precio;
                     instancia.description = respons.Descripcion;
                 }
                 app.imageCode = true;
