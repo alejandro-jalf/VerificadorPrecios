@@ -175,6 +175,7 @@
             $(window).keypress(function(e) {
                 var code = (e.keyCode ? e.keyCode : e.which);
                 if(code==13){
+                    if (letras === "") return;
                     if (app.sucursalConnected === "ND") {
                         alert("No selecciono una sucursal");
                         return;

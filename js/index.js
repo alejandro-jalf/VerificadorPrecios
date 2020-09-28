@@ -51,9 +51,13 @@ var app = new Vue({
                 alert("No selecciono una sucursal");
                 return;
             }
+            const product = $("#search").val();
+            if (product.trim() === "") {
+                alert("Campo vacio");
+                return;
+            }
             this.startLoading(500);
             this.products = [];
-            const product = $("#search").val();
             const urlCompleted = `${this.urlApi}${product}`
             const sucursal = this.sucursalConnected;
             const instancia = this;
