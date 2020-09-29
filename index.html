@@ -16,7 +16,7 @@
             $(".background").hide(2000);
         });
     </script>
-    <div class="background">
+    <div class="background modal-dialog-centered">
         <img src="./src/spinner.gif" alt="" width="200px" height="200px">
     </div>
     <header>
@@ -29,6 +29,10 @@
             </div>
         </nav>
     </header>
+
+    <!-- class="invisible" -->
+    <button class="invisible" id="activateAlert" data-toggle="modal" data-target="#alertDialog">Alert</button>
+
     <div class="container-fluid text-center" id="app">
         <div class="row align-items-center">
             <div class="col-md-3" id="scanner" style="padding: 5% 1%;">
@@ -145,6 +149,27 @@
                 </div>
             </div>
         </div>
+
+        <!-- Modal para mensajes en forma de alert -->
+        <div class="modal fade" id="alertDialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-warning">
+                        <img class="float-left mr-3" src="./src/warning-white.png" alt="" width="30px">
+                        <h5 class="modal-title" id="exampleModalLongTitle">{{titleAlert}}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body text-justify">
+                        <p>{{messageAlert}}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <footer>
@@ -177,7 +202,8 @@
                 if(code==13){
                     if (letras === "") return;
                     if (app.sucursalConnected === "ND") {
-                        alert("No selecciono una sucursal");
+                        app.showAlertDialog("No selecciono una sucursal");
+                        // alert("No selecciono una sucursal");
                         return;
                     }
                     app.setDatosActuales(letras);

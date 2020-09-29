@@ -25,13 +25,19 @@ var app = new Vue({
         cardSeleccionado: "",
         textCardSelected: "",
         alertVisible: false,
-        mssgAlert: "No se encontro ningun articulo"
+        mssgAlert: "No se encontro ningun articulo",
+        messageAlert: "No selecciono una sucursal",
+        titleAlert: "Advertencia"
     },
     mounted: function() {
         $("#ConexionTo").html(`Conexion a ${this.relationNamesSuc[this.sucursalConnected]}`);
         $("#abrirReg").hide();
     },
     methods: {
+        showAlertDialog: function(message) {
+            this.messageAlert = message;
+            $("#activateAlert").click();
+        },
         setResponse: function(products, success = true) {
             $("#abrirReg").click();
             if (success === false) {
@@ -48,12 +54,12 @@ var app = new Vue({
         },
         searchProduct: function() {
             if (this.sucursalConnected === "ND") {
-                alert("No selecciono una sucursal");
+                this.showAlertDialog("No selecciono una sucursal");
                 return;
             }
             const product = $("#search").val();
             if (product.trim() === "") {
-                alert("Campo vacio");
+                this.showAlertDialog("Campo vacio");
                 return;
             }
             this.startLoading(500);
@@ -86,7 +92,7 @@ var app = new Vue({
         loadProduct: function(articulo) {
             const product = this.products.filter((element) => element.Articulo == articulo);
             if (product.length === 0) {
-                alert("Ocurrio un error, haga una nueva busqueda")
+                this.showAlertDialog("Ocurrio un error, haga una nueva busqueda");
                 return;
             }
             this.name = product[0].Nombre;
@@ -108,11 +114,11 @@ var app = new Vue({
         },
         verifyPassword: function (){
             if (this.sucursalSelected === 0) {
-                alert("No selecciono una sucursal");
+                this.showAlertDialog("No selecciono una sucursal");
                 return;
             }
             if(this.textPass !== this.password) {
-                alert("Clave incorrecta");
+                this.showAlertDialog("Clave incorrecta");
                 return;
             }
             const suc = this.getSiglasById(this.sucursalSelected);
