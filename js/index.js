@@ -1,4 +1,5 @@
 var objectQuagga = {initQuagga: (any) => {console.log("init "+any);}};
+var utils = {round: (value, digits = 2, autoComplete = false) => {console.log("Funcion para redondear");}};
 var app = new Vue({
     el: "#app",
     data: {
@@ -34,6 +35,15 @@ var app = new Vue({
         $("#abrirReg").hide();
     },
     methods: {
+        roundPrecios: function(products) {
+            const precioRound = products.map((product) => {
+                console.log(product.Precio);
+                product.Precio = utils.round(product.Precio, 2, true);
+                console.log(product.Precio);
+                return product;
+            });
+            return precioRound;
+        },
         showAlertDialog: function(message) {
             this.messageAlert = message;
             $("#activateAlert").click();
@@ -78,7 +88,7 @@ var app = new Vue({
                     instancia.setResponse(instancia.products, false);
                     return;
                 }
-                instancia.products = response.data.data;
+                instancia.products = instancia.roundPrecios(response.data.data);
                 instancia.setResponse(instancia.products);
                 app.imageCode = true;
                 instancia.stopLoading(500);
@@ -159,7 +169,7 @@ var app = new Vue({
                     instancia.description = "Intente de nuevo";
                 } else {
                     instancia.name = respons.Nombre;
-                    instancia.precio = respons.Precio;
+                    instancia.precio = utils.round(respons.Precio, 2, true);
                     instancia.description = respons.Descripcion;
                 }
                 app.imageCode = true;
