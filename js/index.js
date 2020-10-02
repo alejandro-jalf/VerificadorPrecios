@@ -9,7 +9,7 @@ var app = new Vue({
         description: "Descripcion del producto",
         codigoActual: "----------------",
         imageCode: false,
-        urlApi: "http://........",
+        urlApi: "http://----------------",
         sucursalConnected: localStorage.getItem("sucursalConnected") || "ND",
         relationNamesSuc: {
             ZR: "Zaragoza",
@@ -17,12 +17,12 @@ var app = new Vue({
             OU: "Oluta",
             VC: "Victoria",
             BO: "Bodega",
-            ND: "............."
+            ND: "----------------"
         },
         password: "123456",
         textPass: "",
         sucursalSelected: 0,
-        products: [],
+        products: JSON.parse(localStorage.getItem("products")) || [],
         cardSeleccionado: "",
         textCardSelected: "",
         alertVisible: false,
@@ -32,7 +32,9 @@ var app = new Vue({
     },
     mounted: function() {
         $("#ConexionTo").html(`Conexion a ${this.relationNamesSuc[this.sucursalConnected]}`);
-        $("#abrirReg").hide();
+        if (this.products.length === 0) {
+            $("#abrirReg").hide();
+        }
     },
     methods: {
         roundPrecios: function(products) {
@@ -72,6 +74,8 @@ var app = new Vue({
             }
             this.startLoading(500);
             this.products = [];
+            let stringJson = JSON.stringify(this.products);
+            localStorage.setItem("products", stringJson);
             const urlCompleted = `${this.urlApi}${product}`
             const sucursal = this.sucursalConnected;
             const instancia = this;
@@ -87,6 +91,8 @@ var app = new Vue({
                     return;
                 }
                 instancia.products = instancia.roundPrecios(response.data.data);
+                stringJson = JSON.stringify(instancia.products);
+                localStorage.setItem("products", stringJson);
                 instancia.setResponse(instancia.products);
                 app.imageCode = true;
                 instancia.stopLoading(500);
