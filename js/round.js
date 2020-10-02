@@ -26,6 +26,15 @@ const roundTo = (() => {
         if (digitToRound >= 5 && digitToRound < 9) digitRounded = parseInt(arrayDivision[1].slice((digits - 1), digits)) + 1;
         if (digitToRound === 9) digitRounded = 9;
         rounded = arrayDivision[0] + "." + digitsString + digitRounded;
+        if (autoComplete) {
+            const arrayRounded = rounded.split(".");
+            const faltantes = digits - (arrayRounded[1]).length;
+            let endPart = arrayRounded[1];
+            for (let index = 0; index < faltantes; index++) {
+                endPart += "0";
+            }
+            rounded = arrayRounded[0] + "." + endPart;
+        }
         return rounded;
     }
 

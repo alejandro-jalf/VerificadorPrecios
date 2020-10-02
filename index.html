@@ -201,16 +201,21 @@
                 }
             });
             $(window).keypress(function(e) {
+                if ($("input").is(":focus")) return;
                 var code = (e.keyCode ? e.keyCode : e.which);
-                if(code==13){
-                    if (letras === "") return;
-                    if (app.sucursalConnected === "ND") {
-                        app.showAlertDialog("No selecciono una sucursal");
-                        // alert("No selecciono una sucursal");
+                if ((code >= 48 && code <= 57) || code === 13) {
+                    if(code==13){
+                        if (letras === "") return;
+                        if (app.sucursalConnected === "ND") {
+                            app.showAlertDialog("No selecciono una sucursal");
+                            return;
+                        }
+                        app.setDatosActuales(letras);
+                        letras = "";
                         return;
                     }
-                    app.setDatosActuales(letras);
-                    letras = "";
+                    letras += e.key;
+                    console.log(e.key);
                 }
             });
         });

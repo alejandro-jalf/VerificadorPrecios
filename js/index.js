@@ -37,9 +37,7 @@ var app = new Vue({
     methods: {
         roundPrecios: function(products) {
             const precioRound = products.map((product) => {
-                console.log(product.Precio);
                 product.Precio = utils.round(product.Precio, 2, true);
-                console.log(product.Precio);
                 return product;
             });
             return precioRound;
